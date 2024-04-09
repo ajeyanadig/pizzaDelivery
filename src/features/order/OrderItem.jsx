@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { formatCurrency } from "../../utilities/helpers";
 
 function OrderItem({ item, isLoadingIngredients, ingredients }) {
