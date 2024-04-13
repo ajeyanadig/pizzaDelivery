@@ -1,15 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cart: [
-    {
-      pizzaId: 12,
-      name: "Mediterranean",
-      quantity: 2,
-      unitPrice: 16,
-      totalPrice: 32,
-    },
-  ],
+  cart: [],
 };
 const cartSlice = createSlice({
   name: "cart",
@@ -43,6 +35,7 @@ const cartSlice = createSlice({
     },
   },
 });
+//action functions
 export const {
   addItem,
   deleteItem,
@@ -50,4 +43,21 @@ export const {
   decreaseItemQuantity,
   clearCart,
 } = cartSlice.actions;
+//reducer
 export default cartSlice.reducer;
+
+//NEW-> Selector functions for state derivation inside useSelectors can also be put here as it is cart store state manipulation logic. Now it's reusable here and there. Pretty neat
+//to optimise performance, there's a reselect library for selector functions, LATER TO DO
+
+export const getCart = (state) => state.cart.cart;
+
+export const getTotalCartQuantity = (state) => {
+  return state.cart.cart.reduce((sum, item) => sum + item.quantity, 0);
+};
+
+export const getTotalCartPrice = (state) => {
+  return state.cart.cart.reduce((sum, item) => sum + item.totalPrice, 0);
+};
+
+export const getCurrentQuantityById = (id) => (state) =>
+  state.cart.cart.find((curr) => curr.pizzaId === id)?.quantity ?? 0;
